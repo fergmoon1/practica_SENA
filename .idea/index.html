@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataformas de Control de Versiones</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7f9;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(135deg, #24292e 0%, #3f4448 100%);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+    }
+    h2 {
+      margin: 1rem 0;
+      font-size: clamp(1.4rem, 4vw, 1.8rem);
+    }
+    h3 {
+      margin: 0.8rem 0;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+    }
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      opacity: 0.8;
+    }
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+    .platform-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      width: 100%;
+      max-width: 350px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .platform-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .github-header {
+      background-color: #24292e;
+      color: white;
+    }
+    .gitlab-header {
+      background-color: #fc6d26;
+      color: white;
+    }
+    .bitbucket-header {
+      background-color: #0052cc;
+      color: white;
+    }
+    .platform-logo {
+      max-height: 60px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      object-fit: contain;
+    }
+    .card-content {
+      padding: 1.5rem;
+    }
+    .feature-list {
+      list-style-type: none;
+      padding: 0;
+    }
+    .feature-list li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .feature-list li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #28a745;
+      font-weight: bold;
+    }
+    footer {
+      background-color: #24292e;
+      color: white;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      background-color: #0366d6;
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #0255b3;
+    }
+    .comparison {
+      margin-top: 3rem;
+      overflow-x: auto; /* Enable horizontal scrolling on small screens */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background-color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      min-width: 600px; /* Ensure table doesn't get too compressed */
+    }
+    th, td {
+      padding: 0.8rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eaeaea;
+    }
+    th {
+      background-color: #f1f8ff;
+      font-weight: 600;
+    }
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+    .section {
+      margin: 2.5rem 0;
+    }
+    .info-box {
+      background-color: #f1f8ff;
+      border-left: 4px solid #0366d6;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .grid-item {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    /* Responsive adjustments */
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      .platforms {
+        gap: 1.5rem;
+      }
+      .platform-card {
+        max-width: 100%;
+      }
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+      table {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Control de Versiones: Plataformas</h1>
+  <p class="subtitle">Comparativa de las principales plataformas para gestión de repositorios Git</p>
+</header>
+
+<div class="container">
+  <section class="platforms">
+    <!-- GitHub -->
+    <div class="platform-card">
+      <div class="card-header github-header">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png" alt="GitHub Logo" class="platform-logo">
+        <h2>GitHub</h2>
+      </div>
+      <div class="card-content">
+        <p>La plataforma de desarrollo colaborativo más grande del mundo, adquirida por Microsoft en 2018.</p>
+        <ul class="feature-list">
+          <li>Más de 73 millones de desarrolladores</li>
+          <li>GitHub Actions para CI/CD</li>
+          <li>GitHub Pages para hosting</li>
+          <li>Codespaces (entornos de desarrollo cloud)</li>
+          <li>Amplia integración con herramientas</li>
+          <li>GitHub Copilot (IA para programación)</li>
+        </ul>
+        <a href="https://github.com" class="btn">Visitar GitHub</a>
+      </div>
+    </div>
+
+    <!-- GitLab -->
+    <div class="platform-card">
+      <div class="card-header gitlab-header">
+        <img src="https://about.gitlab.com/images/press/logo/svg/gitlab-logo-white-rgb.svg" alt="GitLab Logo" class="platform-logo">
+        <h2>GitLab</h2>
+      </div>
+      <div class="card-content">
+        <p>Plataforma DevOps completa que unifica el ciclo de vida del desarrollo de software.</p>
+        <ul class="feature-list">
+          <li>Solución todo-en-uno para DevOps</li>
+          <li>CI/CD potente e integrado</li>
+          <li>Versión Community Edition gratuita</li>
+          <li>Opción de instalación on-premise</li>
+          <li>Gestión de proyectos incorporada</li>
+          <li>Seguridad y compliance integrados</li>
+        </ul>
+        <a href="https://gitlab.com" class="btn">Visitar GitLab</a>
+      </div>
+    </div>
+
+    <!-- Bitbucket -->
+    <div class="platform-card">
+      <div class="card-header bitbucket-header">
+        <img src="https://wac-cdn.atlassian.com/dam/jcr:5cae308f-024b-40d8-a5cb-6eff9ef22977/Bitbucket-icon-blue.svg?cdnVersion=1084" alt="Bitbucket Logo" class="platform-logo">
+        <h2>Bitbucket</h2>
+      </div>
+      <div class="card-content">
+        <p>Solución Git de Atlassian, perfectamente integrada con Jira, Confluence y otras herramientas.</p>
+        <ul class="feature-list">
+          <li>Integración perfecta con Jira</li>
+          <li>Pipelines de CI/CD</li>
+          <li>Ideal para equipos que usan Atlassian</li>
+          <li>Repositorios privados gratuitos</li>
+          <li>Pull requests y code reviews</li>
+          <li>Disponible en cloud y servidor</li>
+        </ul>
+        <a href="https://bitbucket.org" class="btn">Visitar Bitbucket</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="comparison">
+    <h2>Comparativa de características</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>Característica</th>
+        <th>GitHub</th>
+        <th>GitLab</th>
+        <th>Bitbucket</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Repositorios privados gratuitos</td>
+        <td>Ilimitados</td>
+        <td>Ilimitados</td>
+        <td>Hasta 5 usuarios</td>
+      </tr>
+      <tr>
+        <td>CI/CD</td>
+        <td>GitHub Actions</td>
+        <td>GitLab CI/CD (integrado)</td>
+        <td>Bitbucket Pipelines</td>
+      </tr>
+      <tr>
+        <td>Instalación local</td>
+        <td>GitHub Enterprise</td>
+        <td>GitLab CE/EE</td>
+        <td>Bitbucket Data Center</td>
+      </tr>
+      <tr>
+        <td>Issues / Tickets</td>
+        <td>Básicos</td>
+        <td>Avanzados</td>
+        <td>Integración con Jira</td>
+      </tr>
+      <tr>
+        <td>Wiki</td>
+        <td>Sí</td>
+        <td>Sí</td>
+        <td>Sí (+ Confluence)</td>
+      </tr>
+      <tr>
+        <td>Hosting web</td>
+        <td>GitHub Pages</td>
+        <td>GitLab Pages</td>
+        <td>No integrado</td>
+      </tr>
+      <tr>
+        <td>Marketplace/Extensiones</td>
+        <td>Muy amplio</td>
+        <td>Moderado</td>
+        <td>Integración Atlassian</td>
+      </tr>
+      <tr>
+        <td>Comunidad</td>
+        <td>Muy grande</td>
+        <td>Grande</td>
+        <td>Moderada</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>¿Cuál elegir?</h2>
+    <p>
+      La elección de una plataforma de gestión de repositorios Git depende de varios factores:
+    </p>
+    <ul>
+      <li><strong>GitHub</strong> es ideal si buscas la mayor comunidad, código abierto o integración con múltiples herramientas.</li>
+      <li><strong>GitLab</strong> es perfecto si necesitas una solución DevOps completa con CI/CD potente.</li>
+      <li><strong>Bitbucket</strong> es la mejor opción si ya utilizas otras herramientas de Atlassian como Jira o Confluence.</li>
+    </ul>
+    <p>
+      Cada plataforma ofrece planes gratuitos para comenzar, así que puedes probarlas todas antes de decidirte por una.
+    </p>
+  </section>
+</div>
+
+<footer>
+  <p>© 2025 - Proyecto de Aprendizaje Git</p>
+  <p>Creado para aprender control de versiones</p>
+</footer>
+</body>
+</html>
